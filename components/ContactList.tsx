@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View,Image} from 'react-native';
 import React from 'react';
 
 const ContactList = () => {
@@ -31,11 +31,68 @@ const ContactList = () => {
 
   return (
     <View>
-      <Text>Contact List</Text>
+      <Text style={styles.headingText}>Contact List</Text>
+
+      <ScrollView
+        style={styles.container}
+        scrollEnabled={false}
+      >
+        {
+            contacts.map(({uid,name,status,imageUrl})=>(
+                <View key={uid} style={styles.userCard}>    
+                    <Image source={{
+                        uri:imageUrl
+                    }}
+                    style={styles.userImage}
+                    />
+                    <View style={styles.userCardText}>
+                        <Text style={styles.userName}>{name}</Text>
+                        <Text style={styles.userStatus}>{status}</Text>
+                    </View>
+                </View>
+
+            ))
+        }
+      </ScrollView>
     </View>
   );
 };
 
 export default ContactList;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    headingText:{
+        fontSize:24,
+        fontWeight:"bold",
+        paddingHorizontal:15
+    },
+    container:{
+        paddingHorizontal:16,
+        marginBottom:4,
+    },
+    userCard:{
+        flexDirection:'row',
+        marginVertical:12,
+        alignItems:'center',
+        backgroundColor:'#9195F6',
+        padding:8,
+        borderRadius:8
+    },
+    userCardText:{
+
+    },
+    userImage:{
+        height:60,
+        width:60,
+        borderRadius:60/2,
+        marginRight:24
+    },
+    userName:{
+        fontSize:18,
+        fontWeight:'500'
+    },
+    userStatus:{
+        fontSize:14,
+        fontWeight:'300'
+    }
+});
